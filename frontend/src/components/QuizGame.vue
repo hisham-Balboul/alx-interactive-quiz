@@ -6,7 +6,7 @@
     </div>
     <div v-if="!store.getters.isQuizCompleted">
       <h3>Question {{ store.state.currentQuestionIndex + 1 }} of {{ store.state.quiz.length }}</h3>
-      <h4>{{ store.getters.currentQuestion.question }}</h4>
+      <h4>{{ store.getters.currentQuestion.question_text }}</h4>
       <div v-for="(option, index) in store.getters.currentQuestion.options" :key="index">
         <button @click="answerQuestion(option)">{{ option }}</button>
       </div>
@@ -21,17 +21,16 @@ import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
-const countdown = ref(30); // 30-second timer for each question
+const countdown = ref(20); // 30-second timer for each question
 
 const answerQuestion = (selectedOption) => {
   const currentQuestion = store.getters.currentQuestion;
-  const isCorrect = selectedOption === currentQuestion.correctAnswer;
-  console.log(`Selected option: ${selectedOption}, Correct answer: ${currentQuestion.correctAnswer}, Is correct: ${isCorrect}`);
+  const isCorrect = selectedOption === currentQuestion.correct_answer;
   store.dispatch('answerQuestion', { isCorrect });
   if (store.getters.isQuizCompleted) {
     router.push('/quiz/result'); // Navigate to the QuizResult component when the quiz is completed
   } else {
-    countdown.value = 30; // Reset timer for next question
+    countdown.value = 20; // Reset timer for next question
   }
 };
 
@@ -46,7 +45,7 @@ onMounted(() => {
       countdown.value--;
     } else {
       answerQuestion(null); // Move to next question if time runs out
-      countdown.value = 30; // Reset timer for next question
+      countdown.value = 20; // Reset timer for next question
     }
   }, 1000);
 

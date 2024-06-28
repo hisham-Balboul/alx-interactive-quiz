@@ -1,9 +1,8 @@
 <template>
   <div>
     <h2>Select Quiz Category</h2>
-    <div v-for="category in categories" :key="category.id" @click="startQuiz(category)" class="category">
-      <h3>{{ category.name }}</h3>
-      <p>{{ category.description }}</p>
+    <div v-for="(categoryName, categoryId) in categories" :key="categoryId" @click="startQuiz(categoryName)" class="category">
+      <h3>{{ categoryName }}</h3>
     </div>
   </div>
 </template>
@@ -28,10 +27,11 @@ onMounted(async () => {
   }
 });
 
-const startQuiz = async (category) => {
+const startQuiz = async (categoryName) => {
   try {
-    const response = await axios.get(`http://127.0.0.1:5000/api/questions/${category.id}`);
+    const response = await axios.get(`http://127.0.0.1:5000/api/questions/${categoryName}`);
     const quiz = response.data;
+    console.log(quiz);
     store.dispatch('fetchQuiz', quiz);
     router.push('/quiz/game');
   } catch (error) {

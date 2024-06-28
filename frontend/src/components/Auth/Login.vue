@@ -20,6 +20,7 @@
   import { ref } from 'vue';
   import { useStore } from 'vuex';
   import { useRouter } from 'vue-router';
+  import axios from 'axios';
   
   const store = useStore();
   const router = useRouter();
@@ -27,10 +28,13 @@
   const username = ref('');
   const password = ref('');
   
-  const loginUser = () => {
-    const user = { username: username.value, password: password.value };
-    store.dispatch('login', user);
-    router.push('/');
+  const loginUser = async () => {
+  const user = {
+    username: username.value,
+    password: password.value
   };
+  await store.dispatch('login',user);
+  router.push('/');
+};
   </script>
   

@@ -1,4 +1,5 @@
 import { createStore } from 'vuex';
+import axios from 'axios';
 
 const store = createStore({
   state: {
@@ -29,11 +30,22 @@ const store = createStore({
     },
   },
   actions: {
-    login({ commit }, user) {
-      commit('setUser', user);
+    async login({ commit }, { username, password }) {
+      try {
+        const response = await axios.post('http://127.0.0.1:5000/login', { username, password, });
+        console.log(response.data);
+        commit('setUser', { username, password });
+      } catch (error) {
+        console.error('Failed to login:', error);
+      }
     },
-    logout({ commit }) {
-      commit('setUser', null); // Set the user to null to log out
+    async logout({ commit }) {
+      try {
+        await axios.post('http://127.0.0.1:5000/logout');
+        commit('setUser', null); // Set the user to null to log out
+      } catch (error) {
+        console.error('Failed to logout:', error);
+      }
     },
     fetchQuiz({ commit }, quiz) {
       commit('setQuiz', quiz);

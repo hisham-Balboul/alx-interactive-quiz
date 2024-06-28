@@ -15,8 +15,8 @@ const router = useRouter();
 
 const currentUser = computed(() => store.getters.currentUser);
 
-const logout = () => {
-  store.dispatch('logout');
+const logout = async () => {
+  await store.dispatch('logout');
   router.push('/login');
 };
 </script>
