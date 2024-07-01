@@ -4,18 +4,23 @@ import axios from 'axios';
 const store = createStore({
   state: {
     user: null,
+    category: null,
     quiz: [],
     currentQuestionIndex: 0,
     score: 0,
   },
   getters: {
     currentUser: (state) => state.user,
+    currentCategory: (state) => state.category,
     currentQuestion: (state) => state.quiz[state.currentQuestionIndex],
     isQuizCompleted: (state) => state.currentQuestionIndex >= state.quiz.length,
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setCategory(state, categoryName) {
+      state.category = categoryName;
     },
     setQuiz(state, quiz) {
       state.quiz = quiz;
@@ -32,8 +37,8 @@ const store = createStore({
   actions: {
     async login({ commit }, { username, password }) {
       try {
-        const response = await axios.post('http://127.0.0.1:5000/login', { username, password, });
-        console.log(response.data);
+        await axios.post('http://127.0.0.1:5000/login', { username, password, });
+        password = "password";
         commit('setUser', { username, password });
       } catch (error) {
         console.error('Failed to login:', error);
@@ -49,6 +54,9 @@ const store = createStore({
     },
     fetchQuiz({ commit }, quiz) {
       commit('setQuiz', quiz);
+    },
+    fetchCategory({ commit }, categoryName) {
+      commit('setCategory', categoryName);
     },
     answerQuestion({ commit, state }, { isCorrect }) {
       if (isCorrect) {

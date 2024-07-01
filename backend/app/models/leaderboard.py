@@ -29,3 +29,23 @@ class Leaderboard(db.Model):
         Get the leaderboard entries for a specific category
         """
         return Leaderboard.query.filter_by(category=category).order_by(Leaderboard.score.desc()).all()
+    
+    @staticmethod
+    def get_categories():
+        """
+        Get all unique categories from the leaderboard entries
+        """
+        return db.session.query(Leaderboard.category).distinct().all()
+    
+    @staticmethod
+    def remove_all_entries():
+        """
+        Remove all entries from the leaderboard table
+        """
+        try:
+            num_deleted = db.session.query(Leaderboard).delete()
+            db.session.commit()
+            return num_deleted  # Return number of deleted entries for confirmation
+        except Exception as e:
+            db.session.rollback()
+            raise e

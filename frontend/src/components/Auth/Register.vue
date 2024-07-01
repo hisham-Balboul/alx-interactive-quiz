@@ -1,28 +1,31 @@
 <template>
-    <div>
-      <h2>Register</h2>
-      <form @submit.prevent="registerUser">
-        <div>
-        <label for="first_name">First Name:</label>
-        <input type="text" v-model="first_name" required>
+  <div class="flex flex-col items-center justify-center h-screen">
+    <h2 class="text-2xl font-bold mb-4">Register</h2>
+    <form @submit.prevent="registerUser" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-xs">
+      <div class="mb-4">
+        <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2">First Name:</label>
+        <input id="first_name" type="text" v-model="first_name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
       </div>
-      <div>
-        <label for="last_name">Last Name:</label>
-        <input type="text" v-model="last_name" required>
+      <div class="mb-4">
+        <label for="last_name" class="block text-gray-700 text-sm font-bold mb-2">Last Name:</label>
+        <input id="last_name" type="text" v-model="last_name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
       </div>
-        <div>
-          <label for="username">Username:</label>
-          <input type="text" v-model="username" required>
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" v-model="password" required>
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <p>Already have an account? <router-link to="/login">Login</router-link></p>
-    </div>
-  </template>
+      <div class="mb-4">
+        <label for="username" class="block text-gray-700 text-sm font-bold mb-2">Username:</label>
+        <input id="username" type="text" v-model="username" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <div class="mb-6">
+        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password:</label>
+        <input id="password" type="password" v-model="password" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Register
+      </button>
+    </form>
+    <p class="text-sm">Already have an account? <router-link to="/login" class="text-blue-500 hover:text-blue-800">Login</router-link>
+    </p>
+  </div>
+</template>
   
   <script setup>
   import { ref } from 'vue';
